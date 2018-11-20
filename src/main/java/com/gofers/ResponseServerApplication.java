@@ -1,14 +1,7 @@
-package com.gofers.responseserver;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+package com.gofers;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author fangzongzhou

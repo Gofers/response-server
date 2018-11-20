@@ -1,4 +1,4 @@
-package com.gofers.requestserver.bean;
+package com.gofers.responseserver.bean;
 
 
 import javax.persistence.Column;
@@ -23,6 +23,9 @@ public class Response {
 	@Id
 	@GeneratedValue
 	private int id;
+
+	@Column
+	private int requestId;
 
 	@Column
 	private String response;

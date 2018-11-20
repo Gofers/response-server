@@ -1,9 +1,9 @@
 package com.gofers.responseserver.controller;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
+
+import com.gofers.responseserver.bean.Req;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,16 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("qwer")
 public class testController {
 	@RequestMapping(value = "asdf",method = RequestMethod.POST)
-	public String asdf(Req req) {
+	public String asdf(@RequestBody Req req) {
 		System.out.println(req.toString());
-		return "adsfasdf";
+		return req.toString();
 	}
-	@Getter
-	@Setter
-	@ToString
-	public class Req {
-		String xiao;
-		int da;
-	}
+
 
 }
