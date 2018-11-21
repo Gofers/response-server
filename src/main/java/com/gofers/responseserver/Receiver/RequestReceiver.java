@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -36,13 +37,24 @@ public class RequestReceiver {
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		HttpEntity<String> httpEntity = new HttpEntity<>(request.getRequestBody(),headers);
 		System.out.println(request.toString());
+		if (request.getMethod().equals(RequestMethod.POST)) {
+			ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://127.0.0.1:"+bizPort + request.getPath(), httpEntity, String.class);
+			Response response = responseService.save(Response.builder()
+					.requestId(request.getId())
+					.response(responseEntity.getBody())
+					.build());
+			responseService.update(request.getId(), response);
+			System.out.println(responseEntity.getBody());
+		}
+		if (request.getMethod().equals(RequestMethod.GET)) {
+			ResponseEntity<String> responseEntity = restTemplate.getForEntity("http://127.0.0.1:"+bizPort +request.getPath() + "?" + request.getRequestBody(), String.class);
+			Response response = responseService.save(Response.builder()
+					.requestId(request.getId())
+					.response(responseEntity.getBody())
+					.build());
+			responseService.update(request.getId(), response);
+			System.out.println(responseEntity.getBody());
+		}
 
-		ResponseEntity<String> responseEntity = restTemplate.postForEntity("http://127.0.0.1:"+bizPort + request.getPath(), httpEntity, String.class);
-		Response response = responseService.save(Response.builder()
-				.requestId(request.getId())
-				.response(responseEntity.getBody())
-				.build());
-		responseService.update(request.getId(), response);
-		System.out.println(responseEntity.getBody());
 	}
 }
